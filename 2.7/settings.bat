@@ -100,10 +100,10 @@ set PYQT_DOWNLOAD="http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.10.1/
 set PYQT_FILE=PyQt4-4.10.1-gpl-Py2.7-Qt4.8.4-x32.exe
 set PYQT_MD5=5bdc651f8ab43386437d3fbc33e8c156
 
-set IPYTHON_DOWNLOAD="http://pypi.python.org/packages/2.7/i/ipython/ipython-0.13.1-py2.7.egg"
-set IPYTHON_FILE=ipython-0.13.1-py2.7.egg
-set IPYTHON_MD5=d4bbe64ccefaf9c46536ab94b846db6f
-
 set PANDAS_DOWNLOAD="https://pypi.python.org/packages/2.7/p/pandas/pandas-0.11.0.win32-py2.7.exe"
 set PANDAS_FILE=pandas-0.11.0.win32-py2.7.exe
 set PANDAS_MD5=aaefa25cc5042f0408834f4d1f74ed10
+
+set PYMUNK_DOWNLOAD="http://pymunk.googlecode.com/files/pymunk-2.1.0.win32.exe"
+set PYMUNK_FILE=pymunk-2.1.0.win32.exe
+set PYMUNK_MD5=75ca1f787acfed13f4cc306aa4950b45

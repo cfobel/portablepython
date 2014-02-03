@@ -42,8 +42,8 @@ call :UnpackPyODBC
 call :UnpackPyGame
 call :UnpackPyGTK
 call :UnpackPyQT
-call :UnpackIPython
 call :UnpackPandas
+call :UnpackPyMunk
 
 goto:EOF
 
@@ -581,48 +581,6 @@ endlocal&goto :EOF
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:UnpackIPython
-::
-:: By:   Perica Zivkovic
-:: Func: Downloads and extracts IPython  
-:: Args: none
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-setlocal ENABLEEXTENSIONS
-
-:: Download 
-call COMMON :DownloadFile %IPYTHON_DOWNLOAD%
-
-:: Verify 
-call COMMON :VerifyFile %IPYTHON_FILE% MD5 %IPYTHON_MD5%
-
-:: Unpack files
-call COMMON :LogMessage "Extracting IPython files"
-tools\uniextract16\bin\7z.exe x "%BIN_FOLDER%\%IPYTHON_FILE%" -o%UNPACK_FOLDER%\ipython\ -y >NUL
-
-:: Fix
-call COMMON :FixMSCRT %UNPACK_FOLDER%\ipython\
-
-:: Unpack files
-call COMMON :LogMessage "Extracting PyReadline files"
-tools\uniextract16\bin\7z.exe x patches\pyreadline-1.7.1.PPpatch -o%UNPACK_FOLDER%\pyreadline\ -y >NUL
-
-:: Fix
-call COMMON :FixMSCRT %UNPACK_FOLDER%\pyreadline\
-
-:: Build Shortcuts
-call COMMON :LogMessage "Build shortcuts"
-tools\nsis\makensis.exe /V0 /DSHORTCUTNAME=IPython /DPY_VERSION=%PY_VERSION% /DPP_VERSION=%PP_VERSION% shortcuts\shortcut.nsi
-
-:: Copy shortcut
-call COMMON :LogMessage "Copy Python Portable shortcut"
-copy shortcuts\IPython-Portable.exe "%UNPACK_FOLDER%" 1>NUL
-
-endlocal&goto :EOF
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :UnpackPandas
 ::
 :: By:   Perica Zivkovic
@@ -640,6 +598,28 @@ tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%PANDAS_FILE%" %UNPACK_FOLDER%\p
 
 :: Fix
 call COMMON :FixMSCRT %UNPACK_FOLDER%\pandas\
+
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackPyMunk
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts PyMunk
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %PYMUNK_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting PyMunk files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%PYMUNK_FILE%" %UNPACK_FOLDER%\pymunk\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\pymunk\
 
 endlocal&goto :EOF
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

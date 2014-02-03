@@ -30,10 +30,10 @@
 ; Include correct folder
 !AddIncludeDir ${PY_VERSION}
 
-!define WEBSITE "PortablePython.com"
+!define WEBSITE "microfluidics.utoronto.ca/microdrop"
 !define VERSION "${PY_VERSION}.${PP_VERSION}"
-!define APPNAME "Portable Python ${VERSION}"
-!define OUTFILENAME "PortablePython_${VERSION}.exe"
+!define APPNAME "MicroDrop Portable Base - Python ${VERSION}"
+!define OUTFILENAME "microdrop-portable-python_${VERSION}.exe"
 !define OUTFOLDER "${OUTPUT_FOLDER}"
 !define SOURCESFOLDER "${SOURCES_FOLDER}"
 
@@ -45,13 +45,13 @@ InstallDir "\${APPNAME}"
 VIProductVersion "${VERSION}"
 VIAddVersionKey ProductName "${APPNAME}"
 VIAddVersionKey Comments "For additional details, visit ${WEBSITE}"
-VIAddVersionKey CompanyName "PortablePython.com"
-VIAddVersionKey LegalCopyright "Perica Zivkovic"
+VIAddVersionKey CompanyName "Wheeler Microfluidics Lab"
+VIAddVersionKey LegalCopyright "Ryan Fobel and Christian Fobel"
 VIAddVersionKey FileDescription "${APPNAME}"
 VIAddVersionKey FileVersion "${VERSION}"
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey InternalName "${APPNAME}"
-VIAddVersionKey LegalTrademarks "PortablePython.com - all rights reserved"
+VIAddVersionKey LegalTrademarks "Copyright Ryan Fobel and Christian Fobel"
 VIAddVersionKey OriginalFilename "${OUTFILENAME}"
 
 ; Runtime Switches
@@ -83,8 +83,8 @@ SetDatablockOptimize On
 ; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
 
-!define MUI_FINISHPAGE_LINK "Donate and help this project - Portable Python"
-!define MUI_FINISHPAGE_LINK_LOCATION "http://PortablePython.com/"
+!define MUI_FINISHPAGE_LINK "Visit the MicroDrop website for more information."
+!define MUI_FINISHPAGE_LINK_LOCATION "http://microfluidics.utoronto.ca/microdrop/"
 ; Finish page
 !insertmacro MUI_PAGE_FINISH
 

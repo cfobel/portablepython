@@ -43,8 +43,8 @@ LangString DESC_MODULE_PYODBC ${LANG_ENGLISH} "Module that allows you to use ODB
 LangString DESC_MODULE_PYGAME ${LANG_ENGLISH} "Pygame adds functionality on top of the excellent SDL library so that you can create fully featured games and multimedia programs."
 LangString DESC_MODULE_PYGTK ${LANG_ENGLISH} "PyGTK lets you to easily create programs with a graphical user interface using the Python programming language."
 LangString DESC_MODULE_PYQT ${LANG_ENGLISH} "PYQT is a set of Python bindings for Nokia's Qt application framework implemented as a set of Python modules and contain over 300 classes and over 6,000 functions and methods."
-LangString DESC_MODULE_IPYTHON ${LANG_ENGLISH} "IPython provides a rich toolkit to help you make the most out of using Python interactively."
 LangString DESC_MODULE_PANDAS ${LANG_ENGLISH} "Pandas is a Python package providing fast, flexible, and expressive data structures designed to make working with structured (tabular, multidimensional, potentially heterogeneous) and time series data both easy and intuitive."
+LangString DESC_MODULE_PYMUNK ${LANG_ENGLISH} "A python wrapper for the 2d physics library Chipmunk"
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${PYTHON_CORE} $(DESC_PYTHON_CORE)
@@ -64,6 +64,6 @@ LangString DESC_MODULE_PANDAS ${LANG_ENGLISH} "Pandas is a Python package provid
   !insertmacro MUI_DESCRIPTION_TEXT ${MODULE_PYGAME} $(DESC_MODULE_PYGAME)
   !insertmacro MUI_DESCRIPTION_TEXT ${MODULE_PYGTK} $(DESC_MODULE_PYGTK)
   !insertmacro MUI_DESCRIPTION_TEXT ${MODULE_PYQT} $(DESC_MODULE_PYQT)
-  !insertmacro MUI_DESCRIPTION_TEXT ${MODULE_IPYTHON} $(DESC_MODULE_IPYTHON)
   !insertmacro MUI_DESCRIPTION_TEXT ${MODULE_PANDAS} $(DESC_MODULE_PANDAS)
+  !insertmacro MUI_DESCRIPTION_TEXT ${MODULE_PYMUNK} $(DESC_MODULE_PYMUNK)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
