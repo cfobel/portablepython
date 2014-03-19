@@ -23,9 +23,9 @@
 ; http://PortablePython.com
 ; =================================================================
 
-InstType "Typical"
 InstType "Minimal"
 InstType "Development"
+InstType "All"
 
 Section "!Python 2.7.5 core" PYTHON_CORE
 	SectionIn 1 2 3 RO
@@ -88,44 +88,44 @@ SectionGroupEnd
 
 SectionGroup "Optional"
 	Section "Pandas 0.11.0" MODULE_PANDAS
-		SectionIn 1 3
+		SectionIn 2 3
 		SetOutPath "$INSTDIR\App\Lib\site-packages\"
 		File /r "${SOURCESFOLDER}\pandas\PLATLIB\*.*"
 	SectionEnd 
 	Section "NetworkX 1.7" MODULE_NETWORKX
-		SectionIn 1
+		SectionIn 3
 		SetOutPath "$INSTDIR\App\Lib\site-packages\networkx\"
 		File /r "${SOURCESFOLDER}\networkx\networkx\*.*"
 	SectionEnd
 	Section "Django 1.5.1" MODULE_DJANGO
-		SectionIn 1
+		SectionIn 3
 		SetOutPath "$INSTDIR\App\Lib\site-packages\django\"
 		File /r "${SOURCESFOLDER}\django\Django-1.5.1\django\*.*"
 		SetOutPath "$INSTDIR\App\Scripts"
 		File "${SOURCESFOLDER}\django\Django-1.5.1\django\bin\django-admin.py"
 	SectionEnd
 	Section "Py2Exe 0.6.9" MODULE_PY2EXE
-		SectionIn 1
+		SectionIn 3
 		SetOutPath "$INSTDIR\App\Lib\site-packages\"
 		File /r "${SOURCESFOLDER}\py2exe\PLATLIB\*.*"
 	SectionEnd
 	Section "wxPython 2.9.4.0" MODULE_WXPYTHON
-		SectionIn 1
+		SectionIn 3
 		SetOutPath "$INSTDIR\App\"
 		File /r "${SOURCESFOLDER}\wxpython\package\*.*"
 	SectionEnd
 	Section "PyODBC 3.0.6" MODULE_PYODBC
-		SectionIn 1
+		SectionIn 3
 		SetOutPath "$INSTDIR\App\Lib\site-packages\"
 		File /r "${SOURCESFOLDER}\pyodbc\PLATLIB\*.*"
 	SectionEnd
 	Section "PyGame 1.9.1" MODULE_PYGAME
-		SectionIn 1
+		SectionIn 3
 		SetOutPath "$INSTDIR\App\"
 		File /r "${SOURCESFOLDER}\pygame\*.*"
 	SectionEnd
 	Section "PyQT 4.10.1" MODULE_PYQT
-		SectionIn 1
+		SectionIn 3
 		SetOutPath "$INSTDIR\App\Lib\"
 		File /r "${SOURCESFOLDER}\pyqt\Lib\*.*"
 		SetOutPath "$INSTDIR\App\Lib\site-packages\PyQT4\"
@@ -139,7 +139,7 @@ SectionGroupEnd
 
 SectionGroup "Code editors"
 	Section "PyScripter 2.5.3" IDE_PYSCRIPTER
-		SectionIn 1 3
+		SectionIn 2 3
 		SetOutPath "$INSTDIR"
 		File /r "${SOURCESFOLDER}\PyScripter\*.*"
 		File "${SOURCESFOLDER}\PyScripter-Portable.exe"
@@ -150,9 +150,15 @@ SectionGroup "`pip` packages"
     Section "Prepare `easy_install` and `pip`"
         Var /GLOBAL EasyInstall
         Var /GLOBAL Pip
+        Var /GLOBAL PipInstallFlags
         SectionIn 1 2 3 RO
         StrCpy $EasyInstall '$INSTDIR\App\Scripts\easy_install.exe'
         StrCpy $Pip '$INSTDIR\App\Scripts\pip.exe'
+        ; Use `--pre` argument to allow installation of [pre-release][1]
+        ; package versions.
+        ;
+        ; [1]: http://stackoverflow.com/questions/18230956/could-not-find-a-version-that-satisfies-the-requirement-pytz
+        StrCpy $PipInstallFlags ' --pre '
     SectionEnd
 
     Section "Install pip"
@@ -162,42 +168,57 @@ SectionGroup "`pip` packages"
 
     Section "Install blinker"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install blinker'
+        nsExec::ExecToLog '$Pip install blinker $PipInstallFlags'
     SectionEnd
 
-    Section "Install path"
+    Section "Install path_helpers"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install http://microfluidics.utoronto.ca/git/python___path.git/snapshot/da43890764f1ee508fe6c32582acd69b87240365.zip'
+        nsExec::ExecToLog '$Pip install path_helpers $PipInstallFlags'
     SectionEnd
 
     Section "Install ipython"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install ipython'
+        nsExec::ExecToLog '$Pip install ipython $PipInstallFlags'
     SectionEnd
 
     Section "Install pyutilib"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install pyutilib'
+        nsExec::ExecToLog '$Pip install pyutilib $PipInstallFlags'
     SectionEnd
 
     Section "Install pyparsing"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install pyparsing'
+        nsExec::ExecToLog '$Pip install pyparsing $PipInstallFlags'
     SectionEnd
 
     Section "Install configobj"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install configobj'
+        nsExec::ExecToLog '$Pip install configobj $PipInstallFlags'
     SectionEnd
 
     Section "Install pyyaml"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install pyyaml'
+        nsExec::ExecToLog '$Pip install pyyaml $PipInstallFlags'
     SectionEnd
 
     Section "Install pyzmq"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install pyzmq'
+        nsExec::ExecToLog '$Pip install pyzmq $PipInstallFlags'
+    SectionEnd
+
+    Section "Install pygst_utils.git"
+        SectionIn 1 2 3 RO
+        nsExec::ExecToLog '$Pip install pygst_utils $PipInstallFlags'
+    SectionEnd
+
+    Section "Install pygtk-text-buffer-with-undo"
+        SectionIn 1 2 3 RO
+        nsExec::ExecToLog '$Pip install pygtk-textbuffer-with-undo $PipInstallFlags'
+    SectionEnd
+
+    Section "Install task_scheduler"
+        SectionIn 1 2 3 RO
+        nsExec::ExecToLog '$Pip install task-scheduler $PipInstallFlags'
     SectionEnd
 
     Section "Install pygst"
@@ -205,34 +226,24 @@ SectionGroup "`pip` packages"
         nsExec::ExecToLog '$Pip install http://microfluidics.utoronto.ca/git/python___pygst.git/snapshot/43321ed8c1c59881a6bddd076b7fe19338b88f3e.zip'
     SectionEnd
 
-    Section "Install opencv_examples"
+    Section "Install opencv_helpers"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install https://github.com/cfobel/python___opencv_examples/tarball/master'
-    SectionEnd
-
-    Section "Install pygst_utils.git"
-        SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install https://github.com/cfobel/pygst_utils/archive/zeromq.zip'
-    SectionEnd
-
-    Section "Install pygst_utils_windows_server"
-        SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install http://microfluidics.utoronto.ca/downloads/pygst_utils_windows_server-0.1.15.tar.gz'
+        nsExec::ExecToLog '$Pip install opencv_helpers $PipInstallFlags'
     SectionEnd
 
     Section "Install geo_util"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install https://github.com/cfobel/python___geo_util/tarball/master'
+        nsExec::ExecToLog '$Pip install geo_util $PipInstallFlags'
     SectionEnd
 
     Section "Install pygtkhelpers"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install https://github.com/cfobel/pygtkhelpers/tarball/pre_object_tree'
+        nsExec::ExecToLog '$Pip install wheeler.pygtkhelpers $PipInstallFlags'
     SectionEnd
 
-    Section "Install flatland"
+    Section "Install flatland-fork"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install http://microfluidics.utoronto.ca/git/python___flatland.git/snapshot/a5111ec9f822f7a42fdb69752f023bcec97257bd.zip'
+        nsExec::ExecToLog '$Pip install flatland-fork $PipInstallFlags'
     SectionEnd
 
     Section "Install pylint"
@@ -240,13 +251,23 @@ SectionGroup "`pip` packages"
         nsExec::ExecToLog '$Pip install http://download.logilab.org/pub/pylint/pylint-0.25.1.tar.gz'
     SectionEnd
 
-    Section "Install labix_constraint"
+    Section "Install wheeler.jsonrpc"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install https://github.com/cfobel/python___labix_constraint/tarball/master'
+        nsExec::ExecToLog '$Pip install wheeler.jsonrpc $PipInstallFlags'
     SectionEnd
 
-    Section "Install jsonrpc"
+    Section "Install microdrop_utility"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install https://github.com/cfobel/python-jsonrpc/tarball/master'
+        nsExec::ExecToLog '$Pip install microdrop_utility $PipInstallFlags'
+    SectionEnd
+
+    Section "Install svg_model"
+        SectionIn 1 2 3 RO
+        nsExec::ExecToLog '$Pip install svg_model $PipInstallFlags'
+    SectionEnd
+
+    Section "Install application_repository"
+        SectionIn 1 2 3 RO
+        nsExec::ExecToLog '$Pip install application_repository $PipInstallFlags'
     SectionEnd
 SectionGroupEnd
