@@ -27,23 +27,31 @@ set COMMON=.\..\common.bat
 
 call :UnpackPython
 call :UnpackPyScripter 
-call :UnpackNumPy
-call :UnpackSciPy
 call :UnpackPyWin32
 call :UnpackNetworkX
 call :UnpackDjango
-call :UnpackPIL
 call :UnpackPy2Exe
 call :UnpackWxPython
-call :UnpackMatplotlib
 call :UnpackLXML
-call :UnpackPySerial
 call :UnpackPyODBC
 call :UnpackPyGame
 call :UnpackPyGTK
 call :UnpackPyQT
-call :UnpackPandas
 call :UnpackPyMunk
+
+call :UnpackGevent
+call :UnpackMatplotlib
+call :UnpackNumexpr
+call :UnpackNumpy
+call :UnpackPandas
+call :UnpackPillow
+call :UnpackPyserial
+call :UnpackPython_Dateutil
+call :UnpackPytz
+call :UnpackPyvisa
+call :UnpackScipy
+call :UnpackSympy
+call :UnpackTables
 
 goto:EOF
 
@@ -157,58 +165,6 @@ endlocal&goto :EOF
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:UnpackNumPy
-::
-:: By:   Perica Zivkovic
-:: Func: Downloads and extracts numpy 
-:: Args: none
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-setlocal ENABLEEXTENSIONS
-
-:: Download 
-call COMMON :DownloadFile %NUMPY_DOWNLOAD%
-
-:: Verify 
-call COMMON :VerifyFile %NUMPY_FILE% MD5 %NUMPY_ZIP_MD5%
-
-:: Unpack files
-call COMMON :LogMessage "Extracting NumPy files"
-tools\uniextract16\bin\7z.exe x "%BIN_FOLDER%\%NUMPY_FILE%" -o%UNPACK_FOLDER%\numpy\ -y
-tools\uniextract16\UniExtract.exe "%UNPACK_FOLDER%\numpy\%NUMPY_FILE_NOSSE%" %UNPACK_FOLDER%\numpy\
-
-:: Fix
-call COMMON :FixMSCRT %UNPACK_FOLDER%\numpy\
-
-endlocal&goto :EOF
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:UnpackSciPy
-::
-:: By:   Perica Zivkovic
-:: Func: Downloads and extracts scipy 
-:: Args: none
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-setlocal ENABLEEXTENSIONS
-
-:: Download 
-call COMMON :DownloadFile %SCIPY_DOWNLOAD%
-
-:: Verify 
-call COMMON :VerifyFile %SCIPY_FILE% MD5 %SCIPY_ZIP_MD5%
-
-:: Unpack files
-call COMMON :LogMessage "Extracting SciPy files"
-tools\uniextract16\bin\7z.exe x "%BIN_FOLDER%\%SCIPY_FILE%" -o%UNPACK_FOLDER%\scipy\ -y
-tools\uniextract16\UniExtract.exe "%UNPACK_FOLDER%\scipy\%SCIPY_FILE_NOSSE%" %UNPACK_FOLDER%\scipy\
-
-:: Fix
-call COMMON :FixMSCRT %UNPACK_FOLDER%\scipy\
-
-endlocal&goto :EOF
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :UnpackPyWin32
 ::
 :: By:   Perica Zivkovic
@@ -293,28 +249,6 @@ endlocal&goto :EOF
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:UnpackPIL
-::
-:: By:   Perica Zivkovic
-:: Func: Downloads and extracts PIL  
-:: Args: none
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-setlocal ENABLEEXTENSIONS
-
-:: Download 
-call COMMON :DownloadFile %PIL_DOWNLOAD%
-
-:: Unpack files
-call COMMON :LogMessage "Extracting PIL files"
-tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%PIL_FILE%" %UNPACK_FOLDER%\pil\
-
-:: Fix
-call COMMON :FixMSCRT %UNPACK_FOLDER%\pil\
-
-endlocal&goto :EOF
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :UnpackPy2Exe
 ::
 :: By:   Perica Zivkovic
@@ -370,31 +304,6 @@ endlocal&goto :EOF
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:UnpackMatplotlib
-::
-:: By:   Perica Zivkovic
-:: Func: Downloads and extracts Matplotlib  
-:: Args: none
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-setlocal ENABLEEXTENSIONS
-
-:: Download 
-call COMMON :DownloadFile %MATPLOTLIB_DOWNLOAD%
-
-:: Verify 
-call COMMON :VerifyFile %MATPLOTLIB_FILE% MD5 %MATPLOTLIB_MD5%
-
-:: Unpack files
-call COMMON :LogMessage "Extracting matplotlib files"
-tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%MATPLOTLIB_FILE%" %UNPACK_FOLDER%\matplotlib\
-
-:: Fix
-call COMMON :FixMSCRT %UNPACK_FOLDER%\matplotlib\
-
-endlocal&goto :EOF
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :UnpackLXML
 ::
 :: By:   Perica Zivkovic
@@ -412,31 +321,6 @@ tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%LXML_FILE%" %UNPACK_FOLDER%\lxm
 
 :: Fix
 call COMMON :FixMSCRT %UNPACK_FOLDER%\lxml\
-
-endlocal&goto :EOF
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:UnpackPySerial
-::
-:: By:   Perica Zivkovic
-:: Func: Downloads and extracts PySerial 
-:: Args: none
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-setlocal ENABLEEXTENSIONS
-
-:: Download 
-call COMMON :DownloadFile %PY_SERIAL_DOWNLOAD%
-
-:: Verify 
-call COMMON :VerifyFile %PY_SERIAL_FILE% MD5 %PY_SERIAL_MD5%
-	
-:: Unpack files
-call COMMON :LogMessage "Extracting PySerial files"
-tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%PY_SERIAL_FILE%" %UNPACK_FOLDER%\pyserial\
-
-:: Fix
-call COMMON :FixMSCRT %UNPACK_FOLDER%\pyserial\
 
 endlocal&goto :EOF
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -581,28 +465,6 @@ endlocal&goto :EOF
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:UnpackPandas
-::
-:: By:   Perica Zivkovic
-:: Func: Downloads and extracts Pandas
-:: Args: none
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-setlocal ENABLEEXTENSIONS
-
-:: Download 
-call COMMON :DownloadFile %PANDAS_DOWNLOAD%
-
-:: Unpack files
-call COMMON :LogMessage "Extracting Pandas files"
-tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%PANDAS_FILE%" %UNPACK_FOLDER%\pandas\ >NUL
-
-:: Fix
-call COMMON :FixMSCRT %UNPACK_FOLDER%\pandas\
-
-endlocal&goto :EOF
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :UnpackPyMunk
 ::
 :: By:   Christian Fobel
@@ -621,5 +483,268 @@ tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%PYMUNK_FILE%" %UNPACK_FOLDER%\p
 :: Fix
 call COMMON :FixMSCRT %UNPACK_FOLDER%\pymunk\
 
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: THE FOLLOWING UNPACK ACTIONS WERE AUTO-GENERATED USING IPYTYHON NOTEBOOK
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackGevent
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts gevent
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %GEVENT_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting gevent files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%GEVENT_FILE%" %UNPACK_FOLDER%\gevent\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\gevent
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackMatplotlib
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts matplotlib
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %MATPLOTLIB_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting matplotlib files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%MATPLOTLIB_FILE%" %UNPACK_FOLDER%\matplotlib\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\matplotlib
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackNumexpr
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts numexpr
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %NUMEXPR_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting numexpr files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%NUMEXPR_FILE%" %UNPACK_FOLDER%\numexpr\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\numexpr
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackNumpy
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts numpy
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %NUMPY_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting numpy files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%NUMPY_FILE%" %UNPACK_FOLDER%\numpy\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\numpy
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackPandas
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts pandas
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %PANDAS_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting pandas files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%PANDAS_FILE%" %UNPACK_FOLDER%\pandas\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\pandas
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackPillow
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts pillow
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %PILLOW_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting pillow files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%PILLOW_FILE%" %UNPACK_FOLDER%\pillow\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\pillow
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackPyserial
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts pyserial
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %PYSERIAL_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting pyserial files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%PYSERIAL_FILE%" %UNPACK_FOLDER%\pyserial\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\pyserial
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackPython_Dateutil
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts python_dateutil
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %PYTHON_DATEUTIL_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting python_dateutil files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%PYTHON_DATEUTIL_FILE%" %UNPACK_FOLDER%\python_dateutil\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\python_dateutil
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackPytz
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts pytz
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %PYTZ_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting pytz files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%PYTZ_FILE%" %UNPACK_FOLDER%\pytz\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\pytz
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackPyvisa
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts pyvisa
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %PYVISA_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting pyvisa files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%PYVISA_FILE%" %UNPACK_FOLDER%\pyvisa\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\pyvisa
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackScipy
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts scipy
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %SCIPY_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting scipy files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%SCIPY_FILE%" %UNPACK_FOLDER%\scipy\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\scipy
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackSympy
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts sympy
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %SYMPY_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting sympy files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%SYMPY_FILE%" %UNPACK_FOLDER%\sympy\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\sympy
+endlocal&goto :EOF
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:UnpackTables
+::
+:: By:   Christian Fobel
+:: Func: Downloads and extracts tables
+:: Args: none
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+setlocal ENABLEEXTENSIONS
+
+:: Download 
+call COMMON :DownloadFile %TABLES_DOWNLOAD%
+
+:: Unpack files
+call COMMON :LogMessage "Extracting tables files"
+tools\uniextract16\UniExtract.exe "%BIN_FOLDER%\%TABLES_FILE%" %UNPACK_FOLDER%\tables\ >NUL
+
+:: Fix
+call COMMON :FixMSCRT %UNPACK_FOLDER%\tables
 endlocal&goto :EOF
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

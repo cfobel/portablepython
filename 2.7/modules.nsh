@@ -37,45 +37,21 @@ Section "!Python 2.7.5 core" PYTHON_CORE
 SectionEnd
 
 SectionGroup "MicroDrop"
+    ; Include packages here that are *required* for MicroDrop.
 	Section "pymunk" MODULE_PYMUNK
         SectionIn 1 2 3 RO
 		SetOutPath "$INSTDIR\App\Lib\site-packages\"
 		File /r "${SOURCESFOLDER}\pymunk\PURELIB\*.*"
 	SectionEnd 
-	Section "NumPy 1.7.1" MODULE_NUMPY
-        SectionIn 1 2 3 RO
-		SetOutPath "$INSTDIR\App\Lib\site-packages\"
-		File /r "${SOURCESFOLDER}\numpy\PLATLIB\*.*"
-	SectionEnd
-	Section "SciPy 0.12.0" MODULE_SCIPY
-        SectionIn 1 2 3 RO
-		SetOutPath "$INSTDIR\App\Lib\site-packages\"
-		File /r "${SOURCESFOLDER}\scipy\PLATLIB\*.*"
-	SectionEnd
 	Section "PyWin32 218" MODULE_PYWIN32
         SectionIn 1 2 3 RO
 		SetOutPath "$INSTDIR\App\"
 		File /r "${SOURCESFOLDER}\pywin32\*.*"
 	SectionEnd
-	Section "PIL 1.1.7" MODULE_PIL
-        SectionIn 1 2 3 RO
-		SetOutPath "$INSTDIR\App\Lib\site-packages\"
-		File /r "${SOURCESFOLDER}\pil\PLATLIB\*.*"
-	SectionEnd
-	Section "matplotlib 1.2.1" MODULE_MATPLOTLIB
-        SectionIn 1 2 3 RO
-		SetOutPath "$INSTDIR\App\Lib\site-packages\"
-		File /r "${SOURCESFOLDER}\matplotlib\PLATLIB\*.*"
-	SectionEnd
 	Section "lxml 2.3" MODULE_LXML
         SectionIn 1 2 3 RO
 		SetOutPath "$INSTDIR\App\Lib\site-packages\"
 		File /r "${SOURCESFOLDER}\lxml\PLATLIB\*.*"
-	SectionEnd
-	Section "PySerial 2.5" MODULE_PY_SERIAL
-        SectionIn 1 2 3 RO
-		SetOutPath "$INSTDIR\App\Lib\site-packages\"
-		File /r "${SOURCESFOLDER}\pyserial\PURELIB\*.*"
 	SectionEnd
 	Section "PyGTK 2.24.2" MODULE_PYGTK
         SectionIn 1 2 3 RO
@@ -84,14 +60,88 @@ SectionGroup "MicroDrop"
 		SetOutPath "$INSTDIR"
 		File "${SOURCESFOLDER}\Glade3-Portable.exe"
 	SectionEnd
+    Section "Gevent" MODULE_GEVENT
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\gevent\PLATLIB\*.*"
+    SectionEnd
+    Section "Matplotlib" MODULE_MATPLOTLIB
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\matplotlib\PLATLIB\*.*"
+    SectionEnd
+    Section "Numexpr" MODULE_NUMEXPR
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\numexpr\PLATLIB\*.*"
+    SectionEnd
+    Section "Numpy" MODULE_NUMPY
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\numpy\PLATLIB\*.*"
+        SetOutPath "$INSTDIR\App\Scripts"
+        File /r "${SOURCESFOLDER}\numpy\SCRIPTS\*.*"
+    SectionEnd
+    Section "Pandas" MODULE_PANDAS
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\pandas\PLATLIB\*.*"
+    SectionEnd
+    Section "Pillow" MODULE_PILLOW
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\Pillow\PLATLIB\*.*"
+        SetOutPath "$INSTDIR\App\Scripts"
+        File /r "${SOURCESFOLDER}\Pillow\SCRIPTS\*.*"
+    SectionEnd
+    Section "Pyserial" MODULE_PYSERIAL
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\pyserial\PURELIB\*.*"
+        SetOutPath "$INSTDIR\App\Scripts"
+        File /r "${SOURCESFOLDER}\pyserial\SCRIPTS\*.*"
+    SectionEnd
+    Section "Python_Dateutil" MODULE_PYTHON_DATEUTIL
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\python_dateutil\PURELIB\*.*"
+    SectionEnd
+    Section "Pytz" MODULE_PYTZ
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\pytz\PURELIB\*.*"
+    SectionEnd
+    Section "Pyvisa" MODULE_PYVISA
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\PyVISA\PURELIB\*.*"
+    SectionEnd
+    Section "Scipy" MODULE_SCIPY
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\scipy\PLATLIB\*.*"
+    SectionEnd
+    Section "Sympy" MODULE_SYMPY
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App"
+        File /r "${SOURCESFOLDER}\sympy\DATA\*.*"
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\sympy\PURELIB\*.*"
+        SetOutPath "$INSTDIR\App\Scripts"
+        File /r "${SOURCESFOLDER}\sympy\SCRIPTS\*.*"
+    SectionEnd
+    Section "Tables" MODULE_TABLES
+        SectionIn 1 2 3 RO
+        SetOutPath "$INSTDIR\App"
+        File /r "${SOURCESFOLDER}\tables\DATA\*.*"
+        SetOutPath "$INSTDIR\App\Lib\site-packages"
+        File /r "${SOURCESFOLDER}\tables\PLATLIB\*.*"
+        SetOutPath "$INSTDIR\App\Scripts"
+        File /r "${SOURCESFOLDER}\tables\SCRIPTS\*.*"
+    SectionEnd
 SectionGroupEnd
 
 SectionGroup "Optional"
-	Section "Pandas 0.11.0" MODULE_PANDAS
-		SectionIn 2 3
-		SetOutPath "$INSTDIR\App\Lib\site-packages\"
-		File /r "${SOURCESFOLDER}\pandas\PLATLIB\*.*"
-	SectionEnd 
 	Section "NetworkX 1.7" MODULE_NETWORKX
 		SectionIn 3
 		SetOutPath "$INSTDIR\App\Lib\site-packages\networkx\"
@@ -183,7 +233,7 @@ SectionGroup "`pip` packages"
 
     Section "Install pyutilib"
         SectionIn 1 2 3 RO
-        nsExec::ExecToLog '$Pip install pyutilib $PipInstallFlags'
+        nsExec::ExecToLog '$Pip install pyutilib==3.9.2706 $PipInstallFlags'
     SectionEnd
 
     Section "Install pyparsing"
@@ -269,5 +319,40 @@ SectionGroup "`pip` packages"
     Section "Install application_repository"
         SectionIn 1 2 3 RO
         nsExec::ExecToLog '$Pip install application_repository $PipInstallFlags'
+    SectionEnd
+
+    Section "Install bitarray"
+        SectionIn 1 2 3 RO
+        nsExec::ExecToLog '$Pip install bitarray $PipInstallFlags'
+    SectionEnd
+
+    Section "Install protobuf"
+        SectionIn 1 2 3 RO
+        nsExec::ExecToLog '$Pip install wheeler.arduino_rpc --pre $PipInstallFlags'
+    SectionEnd
+
+    Section "Install clang"
+        SectionIn 1 2 3 RO
+        nsExec::ExecToLog '$Pip install clang --pre $PipInstallFlags'
+    SectionEnd
+
+    Section "Install clang-helpers"
+        SectionIn 1 2 3 RO
+        nsExec::ExecToLog '$Pip install clang-helpers --pre $PipInstallFlags'
+    SectionEnd
+
+    Section "Install protobuf-helpers"
+        SectionIn 1 2 3 RO
+        nsExec::ExecToLog '$Pip install protobuf-helpers --pre $PipInstallFlags'
+    SectionEnd
+
+    Section "Install nadamq"
+        SectionIn 1 2 3 RO
+        nsExec::ExecToLog '$Pip install nadamq --pre $PipInstallFlags'
+    SectionEnd
+
+    Section "Install arduino_rpc"
+        SectionIn 1 2 3 RO
+        nsExec::ExecToLog '$Pip install wheeler.arduino_rpc --pre $PipInstallFlags'
     SectionEnd
 SectionGroupEnd
