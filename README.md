@@ -1,3 +1,4 @@
+![https://ci.appveyor.com/api/projects/status/github/wheeler-microfluidics/microdrop_portable_python_base?branch=master&svg=true](https://ci.appveyor.com/api/projects/status/github/wheeler-microfluidics/microdrop_portable_python_base?branch=master&svg=true)
 ## Portable Python development pages
 ==============
 
