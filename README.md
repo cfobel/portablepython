@@ -2,7 +2,7 @@
 ==============
 
 #### What is Portable Python?
-Portable Python is a [Python® programming language](http://Python.org/ "Python® programming language") pre-configured to run directly from any USB storage device, local or network location enabling you to have, at any time, a portable programming environment. 
+Portable Python is a [Python programming language](http://Python.org/ "Python programming language") pre-configured to run directly from any USB storage device, local or network location enabling you to have, at any time, a portable programming environment. 
 
 #### Licensing
 Portable Python build scripts are licensed under MIT license, other third party tools and packages are licensed by their respecitive projects/owners.
